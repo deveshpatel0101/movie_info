@@ -1,0 +1,22 @@
+.search {
+  margin-left: auto;
+  position: relative;
+}
+
+.search input {
+  color: white;
+  font-style: italic;
+  letter-spacing: 0.8px;
+}
+
+.project-name a {
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.project-name a:hover {
+  color: #c7c7c7;
+  transition: 0.3s;
+  cursor: pointer;
+}
