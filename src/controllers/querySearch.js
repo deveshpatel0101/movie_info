@@ -34,8 +34,18 @@ export const getById = (id, type) => {
                 }).then(castResponse => {
                     return { response, images: res, cast: castResponse.cast, crew: castResponse.crew }
                 })
-            } else {
-                return { response, images: res }
+            } else if (type === 'person') {
+                url = `https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=${secrets.moviedb_api}&language=en-US`;
+                return fetch(url).then(movieCreditsResponse => {
+                    return movieCreditsResponse.json()
+                }).then(movieCreditsFinal => {
+                    url = `https://api.themoviedb.org/3/person/${id}/tv_credits?api_key=${secrets.moviedb_api}&language=en-US`;
+                    return fetch(url).then(tvCredits => {
+                        return tvCredits.json()
+                    }).then(tvCreditsFinal => {
+                        return { response, images: res, movie_credits: movieCreditsFinal, tv_credits: tvCreditsFinal }
+                    })
+                })
             }
         }).then(finalResponse => {
             return finalResponse;

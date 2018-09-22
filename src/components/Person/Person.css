@@ -1,0 +1,78 @@
+.images-grid {
+  display: grid;
+  width: 80%;
+  margin: 0 auto;
+  grid-template-columns: 24.667% 24.667% 24.667%;
+  grid-gap: 10%;
+}
+
+.images-grid img {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.navbar {
+  width: 85%;
+  margin: 0 auto 20px auto;
+  display: grid;
+  background-color: #535353;
+  grid-template-columns: 50% 50%;  /* 33.33% 33.33% 33.33% */
+  border-radius: 10px;
+}
+
+.navbar div {
+  padding: 15px 0;
+  text-align: center;
+  transition: 0.1s;
+  background-color: #535353;
+  color: white;
+}
+
+.navbar div:hover {
+  background-color: #c2c2c2;
+  transition: 0.1s;
+  cursor: pointer;
+  color: #535353;
+}
+
+.filmography {
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20%;
+  grid-gap: 5%;
+  margin: 0 10%;
+}
+
+@media screen and (max-width: 650px) {
+  .filmography {
+    display: grid;
+    grid-template-columns: 26.66% 26.66% 26.66%;
+    grid-gap: 10%;
+    margin: 0 5%;
+  }
+}
+
+.filmography-card {
+  align-content: center;
+  margin-top: 30px;
+}
+
+.filmography-card-post img{
+    width: 100%;
+}
+
+.filmography-card-content a{
+  display: block;
+  margin-top: 4px;
+  text-align: center;
+  font-size: 0.9em;
+  text-decoration: none;
+  color: blue;
+}
+
+.filmography-card-content a:hover {
+  text-decoration: underline;
+}
+
+.filmography-card-content {
+  align-content: center;
+}
