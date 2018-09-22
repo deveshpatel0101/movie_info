@@ -4,7 +4,8 @@ import { get } from './controllers/querySearch';
 import './App.css';
 import Header from './components/Header/Header';
 import Results from './components/Results/Results';
-import Details from './components/Details/Details';
+import Movie from './components/Movie/Movie';
+import Person from './components/Person/Person';
 import Form from './components/Form/Form';
 
 class App extends Component {
@@ -14,14 +15,13 @@ class App extends Component {
       query: '',
       results: null,
       popular: null,
-      adult: false,
-      searchType: 'movie'
+      adult: false
     }
     this.setQuery = this.setQuery.bind(this);
     this.handleData = this.handleData.bind(this);
   }
 
-//passed as props to header component. will be called when new search query is made
+  //passed as props to header component. will be called when new search query is made
   setQuery(query) {
     if (query !== '') {
       get(query, this.state.adult, false).then(res => {
@@ -32,16 +32,12 @@ class App extends Component {
     }
   }
 
-//sets search type and adult values to sate
-  handleData(data, type) {
-    if (type === 'search-type') {
-      this.setState(() => ({ searchType: data }));
-    } else {
-      this.setState(() => ({ adult: data }));
-    }
+  //sets adult boolean value to state
+  handleData(data) {
+    this.setState(() => ({ adult: data }));
   }
 
-//make first call when component is going to mount for popular movies.
+  //make first call when component is going to mount for popular movies.
   componentWillMount() {
     get(null, this.state.adult, true).then(res => {
       this.setState(() => ({ popular: res }));
@@ -70,10 +66,17 @@ class App extends Component {
               exact={true}
             />
 
-            <Route path='/details' render={() => (
+            <Route path='/movie/details' render={() => (
               <Fragment>
-                <Header query={this.state.query} setQuery={this.setQuery} showBack={true} />
-                <Details />
+                <Header query={this.state.query} setQuery={this.setQuery} showInput={false} />
+                <Movie />
+              </Fragment>
+            )} />
+
+            <Route path='/person/details' render={() => (
+              <Fragment>
+                <Header query={this.state.query} setQuery={this.setQuery} showInput={false} />
+                <Person />
               </Fragment>
             )} />
 

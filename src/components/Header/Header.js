@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Input, LinearProgress, Button } from '@material-ui/core';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import { AppBar, Toolbar, Typography, Input, LinearProgress } from '@material-ui/core';
+
 import './Header.css';
 
 class Header extends React.Component {
@@ -31,27 +31,22 @@ class Header extends React.Component {
         <AppBar position="static">
           <Toolbar>
             <Typography variant="title" color="inherit" className='project-name'>
-              <Link to="/">
-                {this.props.showBack ? //show back button if on the details page
-                  <Button
-                    size="small">
-                    <KeyboardArrowLeft />
-                    Back
-                  </Button> :
-                  <span onClick={this.handleBack}>Movie Search</span>
-                }
+              <Link to='/'>
+                <span onClick={this.handleBack}>Movie Search</span>
               </Link>
             </Typography>
-            {this.props.showBack ?
+            {this.props.showInput === false ?
               null :
-              (<div className='search'>
-                <Input
-                  placeholder="Search"
-                  className='search-input'
-                  onChange={this.setQuery}
-                  value={this.state.query}
-                />
-              </div>)
+              (
+                <div className='search'>
+                  <Input
+                    placeholder="Search"
+                    className='search-input'
+                    onChange={this.setQuery}
+                    value={this.state.query}
+                  />
+                </div>
+              )
             }
           </Toolbar>
         </AppBar>

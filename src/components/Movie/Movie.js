@@ -1,13 +1,16 @@
 import React from 'react';
-import './Details.css';
-import { LinearProgress, Card } from '@material-ui/core';
+import { Link } from 'react-router-dom'
+import './Movie.css';
+import { LinearProgress } from '@material-ui/core';
 import { getById } from '../../controllers/querySearch';
 
-class Details extends React.Component {
+class Movie extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      result: null
+      result: null,
+      cast: null,
+      crew: null
     }
   }
 
@@ -21,47 +24,21 @@ class Details extends React.Component {
     }
     id = id[1].split('&')[0];
     getById(id, type).then(res => {
-      let images = [];
-      if (type === 'person') {
-        images = res.images.profiles.splice(0, 20);
-      } else {
-        images = res.images.backdrops.concat(res.images.posters);
-        images = images.splice(0, 20);
-      }
-      this.setState(() => ({ result: res.response, images: images }));
+      console.log(res)
+      this.setState(() => ({ result: res.response, cast: res.cast, crew: res.crew }));
     });
   }
 
   render() {
     return (
-      this.state.result ?
+      (this.state.result ?
         (
           <div className='details'>
-            <img src={`https://image.tmdb.org/t/p/w500/${this.state.result.poster_path || this.state.result.profile_path}`} alt={`Poster of the ${this.state.result.title}`} />
+            <img className='poster' src={`https://image.tmdb.org/t/p/w500/${this.state.result.poster_path}`} alt={`Poster of the ${this.state.result.title}`} />
             <div className='details-content'>
 
               {this.state.result.title || this.state.result.orginal_name ?
                 <p><b>Title</b>: {this.state.result.title ? this.state.result.title : this.state.result.orginal_name}</p> :
-                null
-              }
-
-              {this.state.result.name ?
-                <p><b>Name</b>: {this.state.result.name}</p> :
-                null
-              }
-
-              {this.state.result.birthday ?
-                <p><b>Born on</b>: {this.state.result.birthday}</p> :
-                null
-              }
-
-              {this.state.result.place_of_birth ?
-                <p><b>Birth Place</b>: {this.state.result.place_of_birth}</p> :
-                null
-              }
-
-              {this.state.result.deathday ?
-                <p><b>Died on</b>: {this.state.result.deathday}</p> :
                 null
               }
 
@@ -148,21 +125,19 @@ class Details extends React.Component {
                 null
               }
 
-              {this.state.result.biography ?
-                <div>
-                  <p><b>Biography</b>: </p>
-                  <p>{this.state.result.biography}</p>
-                </div> :
-                null
-              }
-
             </div>
-            {this.state.images ?
-              <div className='images-grid'>
-                {this.state.images.map((image, value) => (
-                  <Card key={value} className='images-grid-content'>
-                    <img src={`https://image.tmdb.org/t/p/w500/${image.file_path}`} alt='' key={value} />
-                  </Card>
+            {this.state.cast ?
+              <div className='container'>
+                <h3>Cast: {this.state.cast.length}</h3>
+                {this.state.cast.map((cast, value) => (
+                  <div key={value} className='casts'>
+                    <div className='cast-image'>
+                      <img height='100px' width='50px' src={`https://image.tmdb.org/t/p/w500/${cast.profile_path}`} alt='' key={value} />
+                    </div>
+                    <div className='cast-details'>
+                      <p> <Link to={{ pathname: '/person/details', search: `id=${cast.id}&type=person` }}><strong>{cast.name}</strong></Link><br /><span>{cast.character}</span></p>
+                    </div>
+                  </div>
                 ))}
               </div> :
               null
@@ -170,9 +145,9 @@ class Details extends React.Component {
 
           </div>
         ) :
-        <LinearProgress />
+        <LinearProgress />)
     )
   }
 }
 
-export default Details;
+export default Movie;
