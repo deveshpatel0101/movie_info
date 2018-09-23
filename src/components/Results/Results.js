@@ -22,8 +22,8 @@ class Results extends React.Component {
           {result.original_name || result.title ?
             (<Typography variant="subheading" component="h3" className='title' >
               <Link to={{
-                pathname: '/movie/details',
-                search: `id=${result.id}${result.media_type ? (`&media=${result.media_type}`) : ''}`
+                pathname: `/${result.media_type ? result.media_type : 'movie'}/details`,
+                search: `id=${result.id}${result.media_type ? (`&type=${result.media_type}`) : '&type=movie'}`
               }}
                 id={result.id}>{result.title ? result.title : result.original_name}</Link>
             </Typography>) :

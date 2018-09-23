@@ -11,16 +11,15 @@
   margin-top: 10px;
 }
 
-.navbar {
+.person-navbar {
   width: 85%;
   margin: 0 auto 20px auto;
   display: grid;
   background-color: #535353;
-  grid-template-columns: 50% 50%;  /* 33.33% 33.33% 33.33% */
-  border-radius: 10px;
+  grid-template-columns: 33.33% 33.33% 33.33%;
 }
 
-.navbar div {
+.person-navbar div {
   padding: 15px 0;
   text-align: center;
   transition: 0.1s;
@@ -28,14 +27,14 @@
   color: white;
 }
 
-.navbar div:hover {
+.person-navbar div:hover {
   background-color: #c2c2c2;
   transition: 0.1s;
   cursor: pointer;
   color: #535353;
 }
 
-.filmography {
+.filmography, .tv{
   display: grid;
   grid-template-columns: 20% 20% 20% 20%;
   grid-gap: 5%;
@@ -48,7 +47,7 @@
 }
 
 @media screen and (max-width: 650px) {
-  .filmography {
+  .filmography, .tv {
     display: grid;
     grid-template-columns: 26.66% 26.66% 26.66%;
     grid-gap: 10%;
@@ -56,16 +55,16 @@
   }
 }
 
-.filmography-card {
+.filmography-card, .tv-card {
   align-content: center;
   margin-top: 30px;
 }
 
-.filmography-card-post img{
+.filmography-card-post img, .tv-card-post img{
     width: 100%;
 }
 
-.filmography-card-content a{
+.filmography-card-content a, .tv-card-content a{
   display: block;
   margin-top: 4px;
   text-align: center;
@@ -74,10 +73,15 @@
   color: blue;
 }
 
-.filmography-card-content a:hover {
+.filmography-card-content a:hover, .tv-card-content a:hover {
   text-decoration: underline;
 }
 
-.filmography-card-content {
+.filmography-card-content, .tv-card-content {
   align-content: center;
+}
+
+.tv-heading {
+  width: 80%;
+  margin: 50px auto 0 auto;
 }

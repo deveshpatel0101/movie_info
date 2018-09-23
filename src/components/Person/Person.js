@@ -25,7 +25,6 @@ class Person extends React.Component {
     getById(id, 'person').then(res => {
       let images = res.images.profiles.splice(0, 30);
       this.setState(() => ({ result: res.response, images: images }));
-      console.log(res)
     });
   }
 
@@ -48,7 +47,7 @@ class Person extends React.Component {
       (this.state.result ?
         (
           <div className='details'>
-            <img className='poster' src={`https://image.tmdb.org/t/p/w500/${this.state.result.profile_path}`} alt={`Poster of the ${this.state.result.title}`} />
+            <img className='poster' src={`${this.state.result.profile_path ? (`https://image.tmdb.org/t/p/w500/${this.state.result.profile_path}`) : ('/assets/img/person_image_not_found.png')}`} alt={`Poster of the ${this.state.result.title}`} />
             <div className='details-content'>
 
               {this.state.result.name ?
@@ -86,9 +85,10 @@ class Person extends React.Component {
 
             </div>
 
-            <div className='navbar'>
+            <div className='person-navbar'>
               <div onClick={this.handleClick}>Photos</div>
               <div onClick={this.handleClick}>Filmography</div>
+              <div onClick={this.handleClick}>TV</div>
             </div>
 
             {this.state.images && this.state.selection === 'photos' ?
@@ -120,7 +120,7 @@ class Person extends React.Component {
                                 <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={`Poster of ${movie.original_title} movie`} />
                               </div>
                               <div className='filmography-card-content'>
-                                <Link to={{ pathname: '/movie/details', search: `id=${movie.id}&type=movie` }}>{movie.original_title} - ({movie.release_date.split('-')[0]})</Link>
+                                <Link to={{ pathname: '/movie/details', search: `id=${movie.id}&type=movie` }}>{movie.original_title} {movie.release_date ? `- (${movie.release_date.split('-')[0]})` : null}</Link>
                               </div>
                             </div>) : null
                         ))}
@@ -136,24 +136,72 @@ class Person extends React.Component {
               null
             }
 
-            {/* {this.state.movieCredits && this.state.movieCredits.cast.length > 0 && this.state.selection === 'filmography' ?
-              (
-                <div className='filmography'>
-                  {this.state.movieCredits.cast.map((movie, value) => (
-                    movie.poster_path ?
-                      (<div className='filmography-card' key={value}>
-                        <div className='filmography-card-post'>
-                          <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={`Poster of ${movie.original_title} movie`} />
+            {this.state.selection === 'tv' ?
+              (this.state.tvCredits === null ?
+                (
+                  <div className='circular-progress'>
+                    <CircularProgress />
+                  </div>
+                ) :
+                (
+                  this.state.tvCredits.cast.length > 0 ?
+                    (
+                      <div>
+
+                        {/* Cast rendering */}
+                        <h3 className='tv-heading'>Cast - {this.state.tvCredits.cast.length}</h3>
+                        <div className='tv'>
+                          {this.state.tvCredits.cast.map((tv, value) => (
+                            tv.poster_path ?
+                              (
+                                <div className='tv-card' key={value}>
+                                  <div className='tv-card-post'>
+                                    <img src={`https://image.tmdb.org/t/p/w500/${tv.poster_path}`} alt={`Poster of ${tv.original_name} movie`} />
+                                  </div>
+                                  <div className='tv-card-content'>
+                                    <Link to={{ pathname: '/tv/details', search: `id=${tv.id}&type=tv` }}>{tv.original_name} - ({tv.first_air_date.split('-')[0]})</Link>
+                                  </div>
+                                </div>
+                              ) : null
+                          ))}
                         </div>
-                        <div className='filmography-card-content'>
-                          <Link to={{ pathname: '/movie/details', search: `id=${movie.id}&type=movie` }}>{movie.original_title} - ({movie.release_date.split('-')[0]})</Link>
-                        </div>
-                      </div>) : null
-                  ))}
-                </div>
+
+                        {/* Crew rendering */}
+                        {this.state.tvCredits.crew.length > 0 ?
+                          (
+                            <div>
+                              <h3 className='tv-heading'>Crew - {this.state.tvCredits.crew.length}</h3>
+                              <div className='tv'>
+                                {this.state.tvCredits.crew.map((tv, value) => (
+                                  tv.poster_path ?
+                                    (
+                                      <div className='tv-card' key={value}>
+                                        <div className='tv-card-post'>
+                                          <img src={`https://image.tmdb.org/t/p/w500/${tv.poster_path}`} alt={`Poster of ${tv.original_name} movie`} />
+                                        </div>
+                                        <div className='tv-card-content'>
+                                          <Link to={{ pathname: '/tv/details', search: `id=${tv.id}&type=tv` }}>{tv.original_name} - ({tv.first_air_date.split('-')[0]})</Link>
+                                        </div>
+                                      </div>
+                                    ) : null
+                                ))}
+                              </div>
+                            </div>
+                          ) :
+                          null
+                        }
+
+                      </div>
+                    ) :
+                    (
+                      <div>
+                        No movies under this person
+                      </div>
+                    )
+                )
               ) :
               null
-            } */}
+            }
 
           </div>
         ) :

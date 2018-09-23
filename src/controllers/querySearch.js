@@ -1,6 +1,5 @@
 import secrets from '../secrets';
 
-// let results = [];
 let url;
 
 export const get = (query, adult, popular) => {
@@ -27,16 +26,15 @@ export const getById = (id, type) => {
         return fetch(url).then(mainResponse => {
             return mainResponse.json();
         }).then(res => {
-            if (type === 'movie') {
-                url = `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${secrets.moviedb_api}`
+            if (type === 'movie' || type === 'tv') {
+                url = `https://api.themoviedb.org/3/${type}/${id}/credits?api_key=${secrets.moviedb_api}`
                 return fetch(url).then(castMainResponse => {
                     return castMainResponse.json()
                 }).then(castResponse => {
                     return { response, images: res, cast: castResponse.cast, crew: castResponse.crew }
                 })
-            } else if (type === 'person') {
-                return { response, images: res }
             }
+            return { response, images: res }
         }).then(finalResponse => {
             return finalResponse;
         })

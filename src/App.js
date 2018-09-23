@@ -7,6 +7,7 @@ import Results from './components/Results/Results';
 import Movie from './components/Movie/Movie';
 import Person from './components/Person/Person';
 import Form from './components/Form/Form';
+import Television from './components/Television/Television';
 
 class App extends Component {
   constructor(props) {
@@ -49,6 +50,8 @@ class App extends Component {
       <div className="App">
         <BrowserRouter basename={window.location.host === 'deveshpatel.herokuapp.com' ? '/featured_works/movie_info' : '/'}>
           <Switch>
+
+            {/* Home page route */}
             <Route
               path='/'
               render={() => (
@@ -66,6 +69,7 @@ class App extends Component {
               exact={true}
             />
 
+            {/* Route for movie details */}
             <Route path='/movie/details' render={() => (
               <Fragment>
                 <Header query={this.state.query} setQuery={this.setQuery} showInput={false} />
@@ -73,10 +77,19 @@ class App extends Component {
               </Fragment>
             )} />
 
+            {/* Route for person details */}
             <Route path='/person/details' render={() => (
               <Fragment>
                 <Header query={this.state.query} setQuery={this.setQuery} showInput={false} />
                 <Person />
+              </Fragment>
+            )} />
+            
+            {/* Route for tv details */}
+            <Route path='/tv/details' render={() => (
+              <Fragment>
+                <Header query={this.state.query} setQuery={this.setQuery} showInput={false} />
+                <Television />
               </Fragment>
             )} />
 
