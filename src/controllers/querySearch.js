@@ -35,17 +35,7 @@ export const getById = (id, type) => {
                     return { response, images: res, cast: castResponse.cast, crew: castResponse.crew }
                 })
             } else if (type === 'person') {
-                url = `https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=${secrets.moviedb_api}&language=en-US`;
-                return fetch(url).then(movieCreditsResponse => {
-                    return movieCreditsResponse.json()
-                }).then(movieCreditsFinal => {
-                    url = `https://api.themoviedb.org/3/person/${id}/tv_credits?api_key=${secrets.moviedb_api}&language=en-US`;
-                    return fetch(url).then(tvCredits => {
-                        return tvCredits.json()
-                    }).then(tvCreditsFinal => {
-                        return { response, images: res, movie_credits: movieCreditsFinal, tv_credits: tvCreditsFinal }
-                    })
-                })
+                return { response, images: res }
             }
         }).then(finalResponse => {
             return finalResponse;
@@ -54,3 +44,21 @@ export const getById = (id, type) => {
         return res;
     });
 };
+
+export const getFilmography = (id) => {
+    let url = `https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=${secrets.moviedb_api}&language=en-US`;
+    return fetch(url).then(response => {
+        return response.json();
+    }).then(movieCredits => {
+        return movieCredits;
+    })
+}
+
+export const getTv = (id) => {
+    let url = `https://api.themoviedb.org/3/person/${id}/tv_credits?api_key=${secrets.moviedb_api}&language=en-US`;
+    return fetch(url).then(response => {
+        return response.json();
+    }).then(tvCredits => {
+        return tvCredits;
+    })
+}

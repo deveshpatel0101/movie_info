@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Person.css';
-import { LinearProgress } from '@material-ui/core';
-import { getById } from '../../controllers/querySearch';
+import { LinearProgress, CircularProgress } from '@material-ui/core';
+import { getById, getFilmography, getTv } from '../../controllers/querySearch';
 
 class Person extends React.Component {
   constructor(props) {
@@ -14,15 +14,17 @@ class Person extends React.Component {
       tvCredits: null,
       selection: 'photos'
     }
+    this.id = null;
     this.handleClick = this.handleClick.bind(this)
   }
 
   componentWillMount() {
     let id = window.location.search.split('=');
     id = id[1].split('&')[0];
+    this.id = id;
     getById(id, 'person').then(res => {
       let images = res.images.profiles.splice(0, 30);
-      this.setState(() => ({ result: res.response, images: images, movieCredits: res.movie_credits, tvCredits: res.tv_credits }));
+      this.setState(() => ({ result: res.response, images: images }));
       console.log(res)
     });
   }
@@ -30,6 +32,15 @@ class Person extends React.Component {
   handleClick(e) {
     const temp = e.target.innerHTML.toLowerCase();
     this.setState(() => ({ selection: temp }))
+    if (temp.includes('filmography') && !this.state.movieCredits) {
+      getFilmography(this.id).then(res => {
+        this.setState(() => ({ movieCredits: res }))
+      })
+    } else if (temp.includes('tv') && !this.state.tvCredits) {
+      getTv(this.id).then(res => {
+        this.setState(() => ({ tvCredits: res }))
+      })
+    }
   }
 
   render() {
@@ -91,24 +102,58 @@ class Person extends React.Component {
               null
             }
 
-            {this.state.movieCredits && this.state.movieCredits.cast.length > 0 && this.state.selection === 'filmography' ?
+            {this.state.selection === 'filmography' ?
+              (this.state.movieCredits === null ?
+                (
+                  <div className='circular-progress'>
+                    <CircularProgress />
+                  </div>
+                ) :
+                (
+                  this.state.movieCredits.cast.length > 0 ?
+                    (
+                      <div className='filmography'>
+                        {this.state.movieCredits.cast.map((movie, value) => (
+                          movie.poster_path ?
+                            (<div className='filmography-card' key={value}>
+                              <div className='filmography-card-post'>
+                                <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={`Poster of ${movie.original_title} movie`} />
+                              </div>
+                              <div className='filmography-card-content'>
+                                <Link to={{ pathname: '/movie/details', search: `id=${movie.id}&type=movie` }}>{movie.original_title} - ({movie.release_date.split('-')[0]})</Link>
+                              </div>
+                            </div>) : null
+                        ))}
+                      </div>
+                    ) :
+                    (
+                      <div>
+                        No movies under this person
+                      </div>
+                    )
+                )
+              ) :
+              null
+            }
+
+            {/* {this.state.movieCredits && this.state.movieCredits.cast.length > 0 && this.state.selection === 'filmography' ?
               (
                 <div className='filmography'>
                   {this.state.movieCredits.cast.map((movie, value) => (
-                    movie.poster_path ? 
-                    (<div className='filmography-card' key={value}>
-                      <div className='filmography-card-post'>
-                        <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={`Poster of ${movie.original_title} movie`} />
-                      </div>
-                      <div className='filmography-card-content'>
-                        <Link to={{ pathname: '/movie/details', search: `id=${movie.id}&type=movie` }}>{movie.original_title} - ({movie.release_date.split('-')[0]})</Link>
-                      </div>
-                    </div>) : null
+                    movie.poster_path ?
+                      (<div className='filmography-card' key={value}>
+                        <div className='filmography-card-post'>
+                          <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={`Poster of ${movie.original_title} movie`} />
+                        </div>
+                        <div className='filmography-card-content'>
+                          <Link to={{ pathname: '/movie/details', search: `id=${movie.id}&type=movie` }}>{movie.original_title} - ({movie.release_date.split('-')[0]})</Link>
+                        </div>
+                      </div>) : null
                   ))}
                 </div>
               ) :
               null
-            }
+            } */}
 
           </div>
         ) :
