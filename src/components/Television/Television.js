@@ -102,7 +102,7 @@ class Movie extends React.Component {
               }
 
               {this.state.result.next_episode_to_air ?
-                <p><b>Last air date</b>: {this.state.result.next_episode_to_air}</p> :
+                <p><b>Next episode to air</b>: {typeof this.state.result.next_episode_to_air === 'object' ? this.state.result.next_episode_to_air.air_date : this.state.result.next_episode_to_air}</p> :
                 null
               }
 
@@ -134,7 +134,7 @@ class Movie extends React.Component {
                   {this.state.cast.map((cast, value) => (
                     <div key={value} className='casts'>
                       <div className='cast-image'>
-                        <img height='100px' width='50px' src={`${cast.profile_path ? (`https://image.tmdb.org/t/p/w500/${cast.profile_path}`) : ('/assets/img/person_image_not_foung.png')}`} alt='' key={value} />
+                        <img height='100px' width='50px' src={`${cast.profile_path ? (`https://image.tmdb.org/t/p/w500/${cast.profile_path}`) : ('/img/person_image_not_found.png')}`} alt='' key={value} />
                       </div>
                       <div className='cast-details'>
                         <p> <Link to={{ pathname: '/person/details', search: `id=${cast.id}&type=person` }}><strong>{cast.name}</strong></Link><br /><span>{cast.character}</span></p>

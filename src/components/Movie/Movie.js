@@ -121,7 +121,7 @@ class Movie extends React.Component {
                     <div key={value} className='casts'>
 
                       <div className='cast-image'>
-                        <img height='100px' width='50px' src={`${cast.profile_path ? (`https://image.tmdb.org/t/p/w500/${cast.profile_path}`) : ('/assets/img/person_image_not_found.png')}`} alt='' key={value} />
+                        <img height='100px' width='50px' src={`${cast.profile_path ? (`https://image.tmdb.org/t/p/w500/${cast.profile_path}`) : ('/img/person_image_not_found.png')}`} alt='' key={value} />
                       </div>
 
                       <div className='cast-details'>
@@ -144,7 +144,7 @@ class Movie extends React.Component {
                     <div key={value} className='casts'>
 
                       <div className='cast-image'>
-                        <img height='100px' width='50px' src={`${crew.profile_path ? (`https://image.tmdb.org/t/p/w500/${crew.profile_path}`) : ('/assets/img/person_image_not_found.png')}`} alt='' key={value} />
+                        <img height='100px' width='50px' src={`${crew.profile_path ? (`https://image.tmdb.org/t/p/w500/${crew.profile_path}`) : ('/img/person_image_not_found.png')}`} alt='' key={value} />
                       </div>
 
                       <div className='cast-details'>

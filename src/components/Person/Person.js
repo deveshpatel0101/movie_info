@@ -47,7 +47,7 @@ class Person extends React.Component {
       (this.state.result ?
         (
           <div className='details'>
-            <img className='poster' src={`${this.state.result.profile_path ? (`https://image.tmdb.org/t/p/w500/${this.state.result.profile_path}`) : ('/assets/img/person_image_not_found.png')}`} alt={`Poster of the ${this.state.result.title}`} />
+            <img className='poster' src={`${this.state.result.profile_path ? (`https://image.tmdb.org/t/p/w500/${this.state.result.profile_path}`) : ('/img/person_image_not_found.png')}`} alt={`Poster of the ${this.state.result.title}`} />
             <div className='details-content'>
 
               {this.state.result.name ?

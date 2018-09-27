@@ -48,7 +48,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <BrowserRouter basename={window.location.host === 'deveshpatel.herokuapp.com' ? '/featured_works/movie_info' : '/'}>
+        <BrowserRouter basename={window.location.host === 'deveshpatel.herokuapp.com' || window.location.host === 'deveshpatel-staging.herokuapp.com' ? '/featured_works/movie_info' : '/'}>
           <Switch>
 
             {/* Home page route */}
