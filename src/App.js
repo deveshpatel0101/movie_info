@@ -24,12 +24,11 @@ class App extends Component {
 
   //passed as props to header component. will be called when new search query is made
   setQuery(query) {
+    this.setState(() => ({ query }));
     if (query !== '') {
       get(query, this.state.adult, false).then(res => {
-        this.setState(() => ({ results: res, query: query }));
+        this.setState(() => ({ results: res }));
       });
-    } else {
-      this.setState(() => ({ query: '' }));
     }
   }
 
@@ -56,10 +55,10 @@ class App extends Component {
               path='/'
               render={() => (
                 <Fragment>
-                  <Header query={this.state.query} setQuery={this.setQuery} porgressBar={this.state.popular} />
+                  <Header setQuery={this.setQuery} porgressBar={this.state.popular} />
                   <Form handleData={this.handleData} />
                   {this.state.popular || this.state.results ?
-                    (this.state.query !== '' ?
+                    (this.state.query !== '' && this.state.results ?
                       (<Results results={this.state.results} />) : //display if query is present
                       (<Results popular={this.state.popular} />) //display popular movies if query is not present
                     ) :
@@ -84,7 +83,7 @@ class App extends Component {
                 <Person />
               </Fragment>
             )} />
-            
+
             {/* Route for tv details */}
             <Route path='/tv/details' render={() => (
               <Fragment>

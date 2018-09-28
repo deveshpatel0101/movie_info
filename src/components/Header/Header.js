@@ -16,8 +16,8 @@ class Header extends React.Component {
 
   setQuery(e) {
     const temp = e.target.value;
-    this.props.setQuery(temp);
     this.setState(() => ({ query: temp }));
+    this.props.setQuery(temp);
   }
 
   handleBack() {
