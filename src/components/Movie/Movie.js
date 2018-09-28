@@ -108,8 +108,8 @@ class Movie extends React.Component {
             </div>
 
             <div className='movie-navbar'>
-              <div onClick={this.handleClick}>Cast</div>
-              <div onClick={this.handleClick}>Crew</div>
+              <div onClick={this.handleClick} className={this.state.selection === 'cast' ? 'selection-active' : ''}>Cast</div>
+              <div onClick={this.handleClick} className={this.state.selection === 'crew' ? 'selection-active' : ''}>Crew</div>
             </div>
 
             {/* Movie cast rendering */}
@@ -140,7 +140,7 @@ class Movie extends React.Component {
             {/* Movie crew rendering */}
             {this.state.selection === 'crew' && this.state.crew ?
               <div className='container'>
-                <h3>Cast: {this.state.crew.length}</h3>
+                <h3>Crew: {this.state.crew.length}</h3>
                 <div className='casts-main'>
                   {this.state.crew.map((crew, value) => (
                     <div key={value} className='casts'>

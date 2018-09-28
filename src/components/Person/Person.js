@@ -86,9 +86,9 @@ class Person extends React.Component {
             </div>
 
             <div className='person-navbar'>
-              <div onClick={this.handleClick}>Photos</div>
-              <div onClick={this.handleClick}>Filmography</div>
-              <div onClick={this.handleClick}>TV</div>
+              <div onClick={this.handleClick} className={this.state.selection === 'photos' ? 'selection-active' : ''}>Photos</div>
+              <div onClick={this.handleClick} className={this.state.selection === 'filmography' ? 'selection-active' : ''}>Filmography</div>
+              <div onClick={this.handleClick} className={this.state.selection === 'tv' ? 'selection-active' : ''}>TV</div>
             </div>
 
             {/* Photos rendering of person */}

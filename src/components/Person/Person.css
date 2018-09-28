@@ -37,6 +37,10 @@
   color: #535353;
 }
 
+.person-navbar .selection-active {
+  background-color: #2a2a2a;
+}
+
 .filmography, .tv{
   display: grid;
   grid-template-columns: 21.25% 21.25% 21.25% 21.25%;

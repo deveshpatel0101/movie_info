@@ -14,7 +14,14 @@ class Results extends React.Component {
       <Paper elevation={4} className='grid-element' key={result.id}>
 
         {result.poster_path || result.profile_path ?
-          (<img src={`https://image.tmdb.org/t/p/w500/${result.poster_path ? result.poster_path : result.profile_path}`} alt={`poster of movie ${result.title}`} />) :
+          (
+            <Link to={{
+              pathname: `/${result.media_type ? result.media_type : 'movie'}/details`,
+              search: `id=${result.id}&type=${result.media_type ? (result.media_type) : 'movie'}`
+            }}>
+              <img src={`https://image.tmdb.org/t/p/w500/${result.poster_path ? result.poster_path : result.profile_path}`} alt={`poster of movie ${result.title}`} />
+            </Link>
+          ) :
           'Image not available'
         }
 
@@ -23,7 +30,7 @@ class Results extends React.Component {
             (<Typography variant="subheading" component="h3" className='title' >
               <Link to={{
                 pathname: `/${result.media_type ? result.media_type : 'movie'}/details`,
-                search: `id=${result.id}${result.media_type ? (`&type=${result.media_type}`) : '&type=movie'}`
+                search: `id=${result.id}&type=${result.media_type ? (result.media_type) : 'movie'}`
               }}
                 id={result.id}>{result.title ? result.title : result.original_name}</Link>
             </Typography>) :

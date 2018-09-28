@@ -123,6 +123,10 @@
     color: white;
 }
 
+.movie-navbar .selection-active {
+    background-color: #2a2a2a;
+}
+
 .movie-navbar div:hover {
     background-color: #c2c2c2;
     transition: 0.1s;
