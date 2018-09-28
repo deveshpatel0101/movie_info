@@ -91,17 +91,21 @@ class Person extends React.Component {
               <div onClick={this.handleClick}>TV</div>
             </div>
 
+            {/* Photos rendering of person */}
             {this.state.images && this.state.selection === 'photos' ?
-              <div className='images-grid'>
-                {this.state.images.map((image, value) => (
-                  <div key={value} className='images-grid-content'>
-                    <img src={`https://image.tmdb.org/t/p/w500/${image.file_path}`} alt='' key={value} />
-                  </div>
-                ))}
+              <div className='images-container'>
+                <div className='images-grid'>
+                  {this.state.images.map((image, value) => (
+                    <div key={value} className='images-grid-content'>
+                      <img src={`https://image.tmdb.org/t/p/w500/${image.file_path}`} alt='' key={value} />
+                    </div>
+                  ))}
+                </div>
               </div> :
               null
             }
 
+            {/* Filmography rendering of person */}
             {this.state.selection === 'filmography' ?
               (this.state.movieCredits === null ?
                 (
@@ -117,7 +121,9 @@ class Person extends React.Component {
                           movie.poster_path ?
                             (<div className='filmography-card' key={value}>
                               <div className='filmography-card-post'>
-                                <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={`Poster of ${movie.original_title} movie`} />
+                                <Link to={{ pathname: '/movie/details', search: `id=${movie.id}&type=movie` }}>
+                                  <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={`Poster of ${movie.original_title} movie`} />
+                                </Link>
                               </div>
                               <div className='filmography-card-content'>
                                 <Link to={{ pathname: '/movie/details', search: `id=${movie.id}&type=movie` }}>{movie.original_title} {movie.release_date ? `- (${movie.release_date.split('-')[0]})` : null}</Link>
@@ -136,6 +142,7 @@ class Person extends React.Component {
               null
             }
 
+            {/* TV rendering of person */}
             {this.state.selection === 'tv' ?
               (this.state.tvCredits === null ?
                 (
@@ -156,7 +163,9 @@ class Person extends React.Component {
                               (
                                 <div className='tv-card' key={value}>
                                   <div className='tv-card-post'>
-                                    <img src={`https://image.tmdb.org/t/p/w500/${tv.poster_path}`} alt={`Poster of ${tv.original_name} movie`} />
+                                    <Link to={{ pathname: '/tv/details', search: `id=${tv.id}&type=tv` }}>
+                                      <img src={`https://image.tmdb.org/t/p/w500/${tv.poster_path}`} alt={`Poster of ${tv.original_name} movie`} />
+                                    </Link>
                                   </div>
                                   <div className='tv-card-content'>
                                     <Link to={{ pathname: '/tv/details', search: `id=${tv.id}&type=tv` }}>{tv.original_name} - ({tv.first_air_date.split('-')[0]})</Link>
@@ -195,7 +204,7 @@ class Person extends React.Component {
                     ) :
                     (
                       <div>
-                        No movies under this person
+                        No TV serials under this person
                       </div>
                     )
                 )

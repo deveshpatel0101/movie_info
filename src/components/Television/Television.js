@@ -127,6 +127,7 @@ class Movie extends React.Component {
 
             </div>
 
+            {/* TV cast rendering */}
             {this.state.cast ?
               <div className='container'>
                 <h3>Cast: {this.state.cast.length}</h3>
@@ -134,7 +135,9 @@ class Movie extends React.Component {
                   {this.state.cast.map((cast, value) => (
                     <div key={value} className='casts'>
                       <div className='cast-image'>
-                        <img height='100px' width='50px' src={`${cast.profile_path ? (`https://image.tmdb.org/t/p/w500/${cast.profile_path}`) : ('/img/person_image_not_found.png')}`} alt='' key={value} />
+                        <Link to={{ pathname: '/person/details', search: `id=${cast.id}&type=person` }}>
+                          <img height='100px' width='50px' src={`${cast.profile_path ? (`https://image.tmdb.org/t/p/w500/${cast.profile_path}`) : ('/img/person_image_not_found.png')}`} alt='' key={value} />
+                        </Link>
                       </div>
                       <div className='cast-details'>
                         <p> <Link to={{ pathname: '/person/details', search: `id=${cast.id}&type=person` }}><strong>{cast.name}</strong></Link><br /><span>{cast.character}</span></p>

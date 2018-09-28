@@ -1,9 +1,12 @@
-.images-grid {
-  display: grid;
+.images-container {
   width: 80%;
   margin: 0 auto;
-  grid-template-columns: 24.667% 24.667% 24.667%;
-  grid-gap: 10%;
+}
+
+.images-grid {
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  grid-gap: 5%;
 }
 
 .images-grid img {
@@ -36,7 +39,7 @@
 
 .filmography, .tv{
   display: grid;
-  grid-template-columns: 20% 20% 20% 20%;
+  grid-template-columns: 21.25% 21.25% 21.25% 21.25%;
   grid-gap: 5%;
   margin: 0 10%;
 }
@@ -48,10 +51,16 @@
 
 @media screen and (max-width: 650px) {
   .filmography, .tv {
-    display: grid;
-    grid-template-columns: 26.66% 26.66% 26.66%;
-    grid-gap: 10%;
-    margin: 0 5%;
+    grid-template-columns: 30% 30% 30%;
+  }
+  .images-grid {
+    grid-template-columns: 47.5% 47.5%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .filmography, .tv {
+    grid-template-columns: 47.5% 47.5%;
   }
 }
 
