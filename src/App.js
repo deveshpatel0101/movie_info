@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { get } from './controllers/querySearch';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Button from '@material-ui/core/Button';
 import './App.css';
 import Header from './components/Header/Header';
 import Results from './components/Results/Results';
@@ -94,6 +96,11 @@ class App extends Component {
 
           </Switch>
         </BrowserRouter>
+        <div className='goto-top'>
+          <Button variant="fab" color="primary" aria-label="Goto Top" onClick={() => (window.scrollTo(0, 0))}>
+            <ExpandMoreIcon />
+          </Button>
+        </div>
       </div>
     );
   }

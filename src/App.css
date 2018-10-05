@@ -1,0 +1,9 @@
+.goto-top {
+  position: fixed;
+  bottom: 3%;
+  right: 3%;
+}
+
+.goto-top svg {
+  transform: rotate(180deg);
+}

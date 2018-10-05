@@ -5,3 +5,7 @@ body {
     background-color: #dddddd;
     letter-spacing: 0.8px;
 }
+
+html {
+    scroll-behavior: smooth;
+}
