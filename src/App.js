@@ -56,7 +56,7 @@ class App extends Component {
               render={() => (
                 <Fragment>
                   <Header setQuery={this.setQuery} porgressBar={this.state.popular} />
-                  <Form handleData={this.handleData} />
+                  <Form handleData={this.handleData} adult={this.state.adult} />
                   {this.state.popular || this.state.results ?
                     (this.state.query !== '' && this.state.results ?
                       (<Results results={this.state.results} />) : //display if query is present

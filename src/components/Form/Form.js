@@ -2,12 +2,11 @@ import React from 'react';
 import { FormControlLabel, Checkbox } from '@material-ui/core';
 import './Form.css';
 
-
 class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      checked: false,
+      checked: this.props.adult,
       radio: 'movie'
     }
     this.handleChange = this.handleChange.bind(this);
