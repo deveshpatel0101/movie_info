@@ -1,7 +1,7 @@
 .grid {
     display: grid;
     grid-template-columns: 21% 21% 21% 21%;
-    grid-gap: 5%;
+    grid-column-gap: 5%;
     padding-left: 5%;
     padding-right: 5%;
     margin-bottom: 3%;
@@ -42,14 +42,14 @@
 @media screen and (max-width: 950px) {
     .grid {
         grid-template-columns: 30.33% 30.33% 30.33%;
-        grid-gap: 5%;
+        grid-column-gap: 5%;
     }
 }
 
 @media screen and (max-width: 770px) {
     .grid {
         grid-template-columns: 45.5% 45.5%;
-        grid-gap: 8%;
+        grid-column-gap: 8%;
         padding-left: 10%;
         padding-right: 10%;
     }

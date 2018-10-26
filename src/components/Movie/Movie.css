@@ -40,14 +40,14 @@
     display: grid;
     grid-template-columns: 100px auto;
     height: 75%;
-    grid-gap: 5%;
+    grid-column-gap: 5%;
     margin-top: 20px;
 }
 
 .casts-main {
     display: grid;
     grid-template-columns: 33.33% 33.33% 33.33%;
-    grid-gap: 5%;
+    grid-column-gap: 5%;
 }
 
 .cast-details span {

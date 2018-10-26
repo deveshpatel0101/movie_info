@@ -6,7 +6,7 @@
 .images-grid {
   display: grid;
   grid-template-columns: 30% 30% 30%;
-  grid-gap: 5%;
+  grid-column-gap: 5%;
 }
 
 .images-grid img {
@@ -44,7 +44,7 @@
 .filmography, .tv{
   display: grid;
   grid-template-columns: 21.25% 21.25% 21.25% 21.25%;
-  grid-gap: 5%;
+  grid-column-gap: 5%;
   margin: 0 10%;
 }
 

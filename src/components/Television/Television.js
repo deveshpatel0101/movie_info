@@ -18,7 +18,6 @@ class Movie extends React.Component {
     let id = window.location.search.split('=');
     id = id[1].split('&')[0];
     getById(id, 'tv').then(res => {
-      console.log(res)
       this.setState(() => ({ result: res.response, cast: res.cast, crew: res.crew }));
     });
   }
