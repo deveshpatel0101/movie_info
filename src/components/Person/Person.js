@@ -21,18 +21,32 @@ class Person extends React.Component {
 
   componentWillMount() {
     let id = window.location.search.split('=');
+    let selection = id[id.length - 1];
     id = id[1].split('&')[0];
     this.id = id;
     getById(id, 'person').then(res => {
       let images = res.images.profiles.splice(0, 30);
-      this.setState(() => ({ result: res.response, images: images }));
-      this.props.getScrollPosition(window.location.pathname + window.location.search);
+      if(selection === 'filmography') {
+        getFilmography(this.id).then(result => {
+          this.setState(() => ({ movieCredits: result, result: res.response, images: images, selection: 'filmography' }))
+          this.props.getScrollPosition(window.location.pathname + window.location.search);
+        });
+      } else if (selection === 'tv') {
+        getTv(this.id).then(result => {
+          this.setState(() => ({ tvCredits: result, result: res.response, images: images, selection: 'tv' }))
+          this.props.getScrollPosition(window.location.pathname + window.location.search);
+        });
+      } else {
+        this.setState(() => ({ result: res.response, images: images }))
+        this.props.getScrollPosition(window.location.pathname + window.location.search);
+      }
     });
   }
 
   handleClick(e) {
     const temp = e.target.innerHTML.toLowerCase();
     this.setState(() => ({ selection: temp }))
+    window.history.replaceState(null, 'random', window.location.search.split('sel')[0] + 'sel=' + temp);
     if (temp.includes('filmography') && !this.state.movieCredits) {
       getFilmography(this.id).then(res => {
         this.setState(() => ({ movieCredits: res }))
@@ -127,12 +141,12 @@ class Person extends React.Component {
                           movie.poster_path ?
                             (<div className='filmography-card' key={value}>
                               <div className='filmography-card-post'>
-                                <Link onClick={this.setScrollPosition} to={{ pathname: '/movie/details', search: `id=${movie.id}&type=movie` }}>
+                                <Link onClick={this.setScrollPosition} to={{ pathname: '/movie/details', search: `id=${movie.id}&type=movie&sel=cast` }}>
                                   <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={`Poster of ${movie.original_title} movie`} />
                                 </Link>
                               </div>
                               <div className='filmography-card-content'>
-                                <Link onClick={this.setScrollPosition} to={{ pathname: '/movie/details', search: `id=${movie.id}&type=movie` }}>{movie.original_title} {movie.release_date ? `- (${movie.release_date.split('-')[0]})` : null}</Link>
+                                <Link onClick={this.setScrollPosition} to={{ pathname: '/movie/details', search: `id=${movie.id}&type=movie&sel=cast` }}>{movie.original_title} {movie.release_date ? `- (${movie.release_date.split('-')[0]})` : null}</Link>
                               </div>
                             </div>) : null
                         ))}
