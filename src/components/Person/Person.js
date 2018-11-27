@@ -16,6 +16,7 @@ class Person extends React.Component {
     }
     this.id = null;
     this.handleClick = this.handleClick.bind(this)
+    this.setScrollPosition = this.setScrollPosition.bind(this);
   }
 
   componentWillMount() {
@@ -25,6 +26,7 @@ class Person extends React.Component {
     getById(id, 'person').then(res => {
       let images = res.images.profiles.splice(0, 30);
       this.setState(() => ({ result: res.response, images: images }));
+      this.props.getScrollPosition(window.location.pathname + window.location.search);
     });
   }
 
@@ -40,6 +42,10 @@ class Person extends React.Component {
         this.setState(() => ({ tvCredits: res }))
       })
     }
+  }
+
+  setScrollPosition() {
+    this.props.setScrollPosition(window.location.pathname + window.location.search, window.scrollY);
   }
 
   render() {
@@ -121,12 +127,12 @@ class Person extends React.Component {
                           movie.poster_path ?
                             (<div className='filmography-card' key={value}>
                               <div className='filmography-card-post'>
-                                <Link to={{ pathname: '/movie/details', search: `id=${movie.id}&type=movie` }}>
+                                <Link onClick={this.setScrollPosition} to={{ pathname: '/movie/details', search: `id=${movie.id}&type=movie` }}>
                                   <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={`Poster of ${movie.original_title} movie`} />
                                 </Link>
                               </div>
                               <div className='filmography-card-content'>
-                                <Link to={{ pathname: '/movie/details', search: `id=${movie.id}&type=movie` }}>{movie.original_title} {movie.release_date ? `- (${movie.release_date.split('-')[0]})` : null}</Link>
+                                <Link onClick={this.setScrollPosition} to={{ pathname: '/movie/details', search: `id=${movie.id}&type=movie` }}>{movie.original_title} {movie.release_date ? `- (${movie.release_date.split('-')[0]})` : null}</Link>
                               </div>
                             </div>) : null
                         ))}
@@ -163,12 +169,12 @@ class Person extends React.Component {
                               (
                                 <div className='tv-card' key={value}>
                                   <div className='tv-card-post'>
-                                    <Link to={{ pathname: '/tv/details', search: `id=${tv.id}&type=tv` }}>
+                                    <Link onClick={this.setScrollPosition} to={{ pathname: '/tv/details', search: `id=${tv.id}&type=tv` }}>
                                       <img src={`https://image.tmdb.org/t/p/w500/${tv.poster_path}`} alt={`Poster of ${tv.original_name} movie`} />
                                     </Link>
                                   </div>
                                   <div className='tv-card-content'>
-                                    <Link to={{ pathname: '/tv/details', search: `id=${tv.id}&type=tv` }}>{tv.original_name} - ({tv.first_air_date.split('-')[0]})</Link>
+                                    <Link onClick={this.setScrollPosition} to={{ pathname: '/tv/details', search: `id=${tv.id}&type=tv` }}>{tv.original_name} - ({tv.first_air_date.split('-')[0]})</Link>
                                   </div>
                                 </div>
                               ) : null
@@ -189,7 +195,7 @@ class Person extends React.Component {
                                           <img src={`https://image.tmdb.org/t/p/w500/${tv.poster_path}`} alt={`Poster of ${tv.original_name} movie`} />
                                         </div>
                                         <div className='tv-card-content'>
-                                          <Link to={{ pathname: '/tv/details', search: `id=${tv.id}&type=tv` }}>{tv.original_name} - ({tv.first_air_date.split('-')[0]})</Link>
+                                          <Link onClick={this.setScrollPosition} to={{ pathname: '/tv/details', search: `id=${tv.id}&type=tv` }}>{tv.original_name} - ({tv.first_air_date.split('-')[0]})</Link>
                                         </div>
                                       </div>
                                     ) : null

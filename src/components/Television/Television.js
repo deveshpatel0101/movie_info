@@ -12,6 +12,7 @@ class Movie extends React.Component {
       cast: null,
       crew: null
     }
+    this.setScrollPosition = this.setScrollPosition.bind(this);
   }
 
   componentWillMount() {
@@ -19,7 +20,12 @@ class Movie extends React.Component {
     id = id[1].split('&')[0];
     getById(id, 'tv').then(res => {
       this.setState(() => ({ result: res.response, cast: res.cast, crew: res.crew }));
+      this.props.getScrollPosition(window.location.pathname + window.location.search);
     });
+  }
+
+  setScrollPosition() {
+    this.props.setScrollPosition(window.location.pathname + window.location.search, window.scrollY);
   }
 
   render() {
@@ -134,12 +140,12 @@ class Movie extends React.Component {
                   {this.state.cast.map((cast, value) => (
                     <div key={value} className='casts'>
                       <div className='cast-image'>
-                        <Link to={{ pathname: '/person/details', search: `id=${cast.id}&type=person` }}>
+                        <Link onClick={this.setScrollPosition} to={{ pathname: '/person/details', search: `id=${cast.id}&type=person` }}>
                           <img height='100px' width='50px' src={`${cast.profile_path ? (`https://image.tmdb.org/t/p/w500/${cast.profile_path}`) : ('/img/person_image_not_found.png')}`} alt='' key={value} />
                         </Link>
                       </div>
                       <div className='cast-details'>
-                        <p> <Link to={{ pathname: '/person/details', search: `id=${cast.id}&type=person` }}><strong>{cast.name}</strong></Link><br /><span>{cast.character}</span></p>
+                        <p> <Link onClick={this.setScrollPosition} to={{ pathname: '/person/details', search: `id=${cast.id}&type=person` }}><strong>{cast.name}</strong></Link><br /><span>{cast.character}</span></p>
                       </div>
                     </div>
                   ))}

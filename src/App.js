@@ -18,10 +18,13 @@ class App extends Component {
       query: '',
       results: null,
       popular: null,
-      adult: false
+      adult: false,
+      scrollPosition: []
     }
     this.setQuery = this.setQuery.bind(this);
     this.handleData = this.handleData.bind(this);
+    this.setScrollPosition = this.setScrollPosition.bind(this);
+    this.getScrollPosition = this.getScrollPosition.bind(this);
   }
 
   //passed as props to header component. will be called when new search query is made
@@ -44,6 +47,18 @@ class App extends Component {
     get(null, this.state.adult, true).then(res => {
       this.setState(() => ({ popular: res }));
     });
+  }
+
+  setScrollPosition(path, scroll) {
+    this.setState((prevState) => ({ scrollPosition: prevState.scrollPosition.concat({path, scroll}) }));
+  }
+
+  getScrollPosition(path) {
+    let temp = this.state.scrollPosition;
+    if (temp.length > 0 && temp[temp.length - 1].path === path) {
+      window.scrollTo(0, temp[temp.length - 1].scroll);
+      this.setState((prevState) => ({scrollPosition: prevState.scrollPosition.slice(0, prevState.scrollPosition.length - 1)}))
+    }
   }
 
   render() {
@@ -74,7 +89,7 @@ class App extends Component {
             <Route path='/movie/details' render={() => (
               <Fragment>
                 <Header query={this.state.query} setQuery={this.setQuery} showInput={false} />
-                <Movie />
+                <Movie setScrollPosition={this.setScrollPosition} getScrollPosition={this.getScrollPosition} />
               </Fragment>
             )} />
 
@@ -82,7 +97,7 @@ class App extends Component {
             <Route path='/person/details' render={() => (
               <Fragment>
                 <Header query={this.state.query} setQuery={this.setQuery} showInput={false} />
-                <Person />
+                <Person setScrollPosition={this.setScrollPosition} getScrollPosition={this.getScrollPosition} />
               </Fragment>
             )} />
 
@@ -90,7 +105,7 @@ class App extends Component {
             <Route path='/tv/details' render={() => (
               <Fragment>
                 <Header query={this.state.query} setQuery={this.setQuery} showInput={false} />
-                <Television />
+                <Television setScrollPosition={this.setScrollPosition} getScrollPosition={this.getScrollPosition} />
               </Fragment>
             )} />
 
