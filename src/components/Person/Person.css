@@ -41,7 +41,8 @@
   background-color: #2a2a2a;
 }
 
-.filmography, .tv{
+.filmography,
+.tv {
   display: grid;
   grid-template-columns: 21.25% 21.25% 21.25% 21.25%;
   grid-column-gap: 5%;
@@ -54,7 +55,8 @@
 }
 
 @media screen and (max-width: 650px) {
-  .filmography, .tv {
+  .filmography,
+  .tv {
     grid-template-columns: 30% 30% 30%;
   }
   .images-grid {
@@ -63,21 +65,25 @@
 }
 
 @media screen and (max-width: 400px) {
-  .filmography, .tv {
+  .filmography,
+  .tv {
     grid-template-columns: 47.5% 47.5%;
   }
 }
 
-.filmography-card, .tv-card {
+.filmography-card,
+.tv-card {
   align-content: center;
   margin-top: 30px;
 }
 
-.filmography-card-post img, .tv-card-post img{
-    width: 100%;
+.filmography-card-post img,
+.tv-card-post img {
+  width: 100%;
 }
 
-.filmography-card-content a, .tv-card-content a{
+.filmography-card-content a,
+.tv-card-content a {
   display: block;
   margin-top: 4px;
   text-align: center;
@@ -86,11 +92,13 @@
   color: blue;
 }
 
-.filmography-card-content a:hover, .tv-card-content a:hover {
+.filmography-card-content a:hover,
+.tv-card-content a:hover {
   text-decoration: underline;
 }
 
-.filmography-card-content, .tv-card-content {
+.filmography-card-content,
+.tv-card-content {
   align-content: center;
 }
 

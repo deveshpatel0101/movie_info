@@ -1,4 +1,5 @@
-.search {
+.search,
+.app-info-left {
   margin-left: auto;
   position: relative;
 }
@@ -7,6 +8,7 @@
   color: white;
   font-style: italic;
   letter-spacing: 0.8px;
+  width: 170px;
 }
 
 .project-name a {
@@ -19,4 +21,14 @@
   color: #c7c7c7;
   transition: 0.3s;
   cursor: pointer;
+}
+
+.app-info-after-input {
+  display: inline-block;
+  margin: 0 -15px 0 10px;
+  transform: rotate(180deg);
+}
+
+.app-info-after-input button, .app-info-left button {
+  color: white;
 }

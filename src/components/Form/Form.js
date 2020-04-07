@@ -7,16 +7,15 @@ class Form extends React.Component {
     super(props);
     this.state = {
       checked: this.props.adult,
-      radio: 'movie'
-    }
-    this.handleChange = this.handleChange.bind(this);
+      radio: 'movie',
+    };
   }
 
-  handleChange(e) {
+  handleChange = (e) => {
     const temp = e.target.checked;
     this.setState(() => ({ checked: temp }));
     this.props.handleData(temp);
-  }
+  };
 
   render() {
     return (
@@ -24,16 +23,18 @@ class Form extends React.Component {
         <div>
           <FormControlLabel
             control={
-              <Checkbox value='checkedE'
+              <Checkbox
+                value='checkedE'
                 checked={this.state.checked}
                 onChange={this.handleChange}
                 color='default'
-              />}
+              />
+            }
             label='Enable adult content'
           />
         </div>
       </div>
-    )
+    );
   }
 }
 

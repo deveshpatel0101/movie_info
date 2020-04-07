@@ -1,0 +1,14 @@
+.popover-content {
+  text-align: center;
+  padding: 10px;
+}
+
+.popover-content .favorite {
+  position: relative; 
+  top: 0;
+  left: 0;
+}
+
+.popover-content div {
+  margin-top: 8px;
+}
